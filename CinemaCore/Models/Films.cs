@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace CinemaCore.Models;
 
@@ -38,13 +39,18 @@ public partial class Films
     [Display(Name = "Описание")]
     public string Description { get; set; } = null!;
 
+    [JsonIgnore]
     public virtual ICollection<ActorCasts> ActorCasts { get; } = new List<ActorCasts>();
 
+    [JsonIgnore]
     public virtual CountryProductions? CountryProduction { get; set; }
 
+    [JsonIgnore]
     public virtual FilmProductions? FilmProduction { get; set; }
 
+    [JsonIgnore]
     public virtual Genres? Genre { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<ListEvents> ListEvents { get; } = new List<ListEvents>();
 }

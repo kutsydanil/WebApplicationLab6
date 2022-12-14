@@ -1,0 +1,21 @@
+﻿body {
+	
+}
+p, h2, h1, h3 {
+	text-align: center;
+	margin: 5px 0px 20px 0px;
+
+}
+header{
+	background-color: black;
+	height: 40px;
+}
+
+footer {
+	background-color: black;
+	height: 40px;
+}
+a {
+	cursor: pointer;
+	padding: 15px;
+}

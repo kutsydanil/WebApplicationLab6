@@ -1,4 +1,4 @@
-namespace WebApplicationLab6
+namespace WebApplication1
 {
     public class WeatherForecast
     {

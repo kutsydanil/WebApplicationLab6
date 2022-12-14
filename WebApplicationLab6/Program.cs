@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+
+
 namespace WebApplicationLab6
 {
     public class Program
@@ -5,10 +9,15 @@ namespace WebApplicationLab6
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+            builder.Services.AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
+
+            /*builder.Services.AddControllers().AddNewtonsoftJson(options => {
+              options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+          });*/
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -19,6 +28,9 @@ namespace WebApplicationLab6
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
 
             app.UseHttpsRedirection();
 
