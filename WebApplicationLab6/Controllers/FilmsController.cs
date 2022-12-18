@@ -6,8 +6,9 @@ using System.Runtime.InteropServices;
 
 namespace WebApplicationLab6.Controllers
 {
-    [Route("[controller]")]
+    
     [ApiController]
+    [Route("api/[controller]")]
     public class FilmsController : ControllerBase
     {
         private readonly CinemaContext _context;
@@ -20,13 +21,14 @@ namespace WebApplicationLab6.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Films>>> Get()
         {
-            return Ok(await _context.Films.Include(f => f.FilmProduction).Include(c => c.CountryProduction).Include(g => g.Genre).ToListAsync());
+            var result = await _context.Films.Include(f => f.FilmProduction).Include(c => c.CountryProduction).Include(g => g.Genre).ToListAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetById(int? id)
         {
-            Films film = await _context.Films.FirstOrDefaultAsync(f => f.Id == id);
+            Films film = await _context.Films.Include(f => f.FilmProduction).Include(c => c.CountryProduction).Include(g => g.Genre).FirstOrDefaultAsync(f => f.Id == id);
             if(film != null)
             {
                 return Ok(film);

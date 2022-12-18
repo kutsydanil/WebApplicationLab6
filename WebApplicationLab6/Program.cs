@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-
+using System.Text.Json.Serialization;
 
 namespace WebApplicationLab6
 {
@@ -13,11 +12,9 @@ namespace WebApplicationLab6
 
             builder.Services.AddDbContext<CinemaContext>(options => options.UseSqlServer(connectionString));
 
-            /*builder.Services.AddControllers().AddNewtonsoftJson(options => {
-              options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-          });*/
-
             builder.Services.AddControllers();
+                //AddJsonOptions(o => o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
