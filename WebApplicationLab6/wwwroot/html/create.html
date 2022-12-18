@@ -5,6 +5,7 @@
     <title>Create</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/Style.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/GetDataForControllers.js"></script>
 </head>
 <body>
 
@@ -13,7 +14,7 @@
             <div class="col-md-5">
                 <h3>Добавление фильма</h3>
                 <hr />
-                <form name="createFilm">
+                <form name="filmForm">
                     <input type="hidden" name="id" value="0"/>
                     <div class="form-floating mb-2">
                         Название: <input asp-for="Name" class="form-control" name="name" />
@@ -46,67 +47,13 @@
             </div>
         </div>
     </div>
-
-
     <script>
-
-        //Функция получения всех жанров в элемент html-разметки (select)
-        async function GetAllGenres() {
-            var selectList = createFilm.genre;
-			const response = await fetch("/api/genres", {
-				method: "GET",
-				headers: { "Accept": "application/json" }
-            });
-            if (response.ok === true) {
-				const genres = await response.json();
-				genres.forEach(genre => {
-					var option = document.createElement("option");
-					option.text = genre.name;
-					option.value = parseInt(genre.id);
-					selectList.append(option)
-				});
-            }
-        }
-
-		//Функция получения всех стран-производителей в элемент html-разметки (select)
-		async function GetAllCountryProductions() {
-			var selectList = createFilm.countryProduction;
-			const response = await fetch("/api/countryProductions", {
-				method: "GET",
-				headers: { "Accept": "application/json" }
-			});
-			if (response.ok === true) {
-				const countryProductions = await response.json();
-				countryProductions.forEach(countryProduction => {
-					var option = document.createElement("option");
-					option.text = countryProduction.name;
-					option.value = parseInt(countryProduction.id);
-                    selectList.append(option);
-				});
-			}
-        }
-
-		//Функция получения всех компаний-производителей в элемент html-разметки (select)
-		async function GetAllFilmProduction() {
-			var selectList = createFilm.filmProduction;
-			const response = await fetch("/api/filmProductions", {
-				method: "GET",
-				headers: { "Accept": "application/json" }
-			});
-			if (response.ok === true) {
-				const filmsProductions = await response.json();
-				filmsProductions.forEach(filmsProduction => {
-					var option = document.createElement("option");
-					option.text = filmsProduction.name;
-					option.value = parseInt(filmsProduction.id);
-                    selectList.append(option);
-				});
-			}
+		//Функция, которая активируется при загрузке страницы html
+		window.onload = function () {
+			GetAllGenres();
+			GetAllCountryProductions();
+			GetAllFilmProduction();
 		}
-        
-        GetAllGenres();
-        GetAllCountryProductions();
-        GetAllFilmProduction();
 
         //Функция создания новой записи о фильме
 		async function CreateFilm(name, genreId, duration, filmProductionId, countryProductionId, ageLimit, description) {
@@ -128,15 +75,16 @@
             if (response.ok === true) {
                 const film = await response.json();
                 alert("Запись была успешно создана");
+                window.location = "index.html";
             }
 			else {
                 alert("Ошибка в данных");
 			}
         }
 
-		document.forms["createFilm"].addEventListener("submit", e => {
+		document.forms["filmForm"].addEventListener("submit", e => {
 			e.preventDefault();
-            const form = document.forms["createFilm"];
+			const form = document.forms["filmForm"];
 
 			const name = form.elements["name"].value;
             

@@ -6,8 +6,8 @@
     <title>Lab</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/Style.css" rel="stylesheet">
+    <script type="text/javascript" src="../js/GetDataForControllers.js"></script>
     <script type="text/javascript" src="../js/main.js"></script>
-
 </head>
 <body>
     
@@ -16,7 +16,7 @@
         </div>
     </header>
     <div class="container">
-        <a href="create.html">Создать запись</a>
+        <a href="create.html" class="btn btn-primary">Создать запись</a>
         <h2>Список фильмов</h2>
         <table class="table">
             <thead>
@@ -40,6 +40,10 @@
         <div class="container">
         </div>
     </footer>
-
+    <script>
+		window.onload = function () {
+			GetAllFilms();
+		}
+    </script>
 </body>
 </html>

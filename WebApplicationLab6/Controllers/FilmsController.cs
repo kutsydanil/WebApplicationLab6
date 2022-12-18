@@ -54,15 +54,18 @@ namespace WebApplicationLab6.Controllers
         [HttpPut]
         public async Task<ActionResult> Update(Films film)
         {
-            if(film != null)
+            if (ModelState.IsValid)
             {
-                if (await _context.Films.AnyAsync(f => f.Id == film.Id))
+                if (film != null)
                 {
-                    _context.Update(film);
-                    await _context.SaveChangesAsync();
-                    return Ok(film);
+                    if (await _context.Films.AnyAsync(f => f.Id == film.Id))
+                    {
+                        _context.Update(film);
+                        await _context.SaveChangesAsync();
+                        return Ok(film);
+                    }
+                    return NotFound();
                 }
-                return NotFound(); 
             }
             return BadRequest();
         }

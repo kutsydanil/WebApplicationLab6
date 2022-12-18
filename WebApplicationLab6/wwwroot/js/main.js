@@ -1,19 +1,4 @@
-﻿//Функция получения данных и занесения в таблицу 
-async function GetAllFilms() {
-	const response = await fetch("/api/films", {
-		method: "GET",
-		headers: { "Accept": "application/json" }
-	});
-
-	if (response.ok === true) {
-		const films = await response.json();
-		let rows = document.querySelector("tbody");
-		films.forEach(film => {
-			rows.append(row(film));
-		});
-	}
-}
-
+﻿
 //Функция удаления фильма по id
 async function DeleteFilmById(id) {
 	const response = await fetch("/api/films/" + id, {
@@ -72,7 +57,8 @@ function row(film) {
 	linkForEdit.append("Изменить")
 	linkForEdit.addEventListener("click", event => {
 		event.preventDefault();
-		alert("Редактирование");
+		localStorage.setItem('id', film.id);
+		window.location = "edit.html";
 	});
 	linksTd.append(linkForEdit);
 
@@ -89,4 +75,3 @@ function row(film) {
 	return tr;
 }
 
-GetAllFilms();
