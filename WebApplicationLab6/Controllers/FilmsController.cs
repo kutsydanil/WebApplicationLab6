@@ -71,7 +71,7 @@ namespace WebApplicationLab6.Controllers
             {
                 _context.Films.Remove(film);
                 await _context.SaveChangesAsync();
-                return NoContent();
+                return Ok(film);
             }
             return NotFound();
         }

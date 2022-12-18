@@ -14,10 +14,23 @@ async function GetAllFilms() {
 	}
 }
 
+async function DeleteFilmById(id) {
+	const response = await fetch("/api/films/" + id, {
+		method: "DELETE",
+		headers: { "Accept": "application/json" }
+	});
+
+	if (response.ok === true) {
+		const film = await response.json();
+		alert("Успешное удаление");
+		document.querySelector("tr[data-rowid='" + film.id + "']").remove();
+	}
+}
+
 //Функция для создания строки таблицы
 function row(film) {
 	const tr = document.createElement("tr");
-	tr.setAttribute("row-id", film.id);
+	tr.setAttribute("data-rowid", film.id);
 
 	const idTd = document.createElement("td");
 	idTd.append(film.id);
@@ -67,7 +80,7 @@ function row(film) {
 	linkForDelete.append("Удалить");
 	linkForDelete.addEventListener("click", event => {
 		event.preventDefault();
-		alert("Удаление")
+		DeleteFilmById(film.id)
 	});
 	linksTd.append(linkForDelete);
 
