@@ -14,6 +14,7 @@ async function GetAllFilms() {
 	}
 }
 
+//Функция удаления фильма по id
 async function DeleteFilmById(id) {
 	const response = await fetch("/api/films/" + id, {
 		method: "DELETE",

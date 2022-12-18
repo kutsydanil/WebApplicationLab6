@@ -39,11 +39,14 @@ namespace WebApplicationLab6.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Films film)
         {
-            if(film != null)
+            if (ModelState.IsValid)
             {
-                _context.Films.Add(film);
-                await _context.SaveChangesAsync();
-                return Ok(film);
+                if (film != null)
+                {
+                    _context.Films.Add(film);
+                    await _context.SaveChangesAsync();
+                    return Ok(film);
+                }
             }
             return BadRequest();
         }

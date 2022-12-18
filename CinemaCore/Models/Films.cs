@@ -11,7 +11,7 @@ public partial class Films
 
     [Required(ErrorMessage = "Не указано название фильма")]
     [Display(Name = "Название")]
-    public string Name { get; set; } = null!;
+    public string Name { get; set; }
 
     [Required(ErrorMessage = "Не указано названи жанр")]
     [Display(Name = "Жанр")]
@@ -37,19 +37,19 @@ public partial class Films
 
     [Required(ErrorMessage = "Не указано описание")]
     [Display(Name = "Описание")]
-    public string Description { get; set; } = null!;
+    public string Description { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<ActorCasts> ActorCasts { get; } = new List<ActorCasts>();
 
     //[JsonIgnore]
-    public virtual CountryProductions CountryProduction { get; set; } = null!;
+    public virtual CountryProductions? CountryProduction { get; set; }
 
     //[JsonIgnore]
-    public virtual FilmProductions FilmProduction { get; set; } = null!;
+    public virtual FilmProductions? FilmProduction { get; set; }
 
     //[JsonIgnore]
-    public virtual Genres Genre { get; set; } = null!;
+    public virtual Genres? Genre { get; set; }
 
     [JsonIgnore]
     public virtual ICollection<ListEvents> ListEvents { get; } = new List<ListEvents>();
